@@ -1,0 +1,10 @@
+for %%x in ("%USERPROFILE%\Desktop\WTF\") do set WTFDIR=%%~sx
+mkdir %WTFDIR%
+for /r %%x in (*.png *.jpg *.jpeg *.gif) do "C:\Program Files\7-Zip\7z.exe" x %%~sx -o%WTFDIR% -r -aou >> log.txt
+for /r %%x in (*.png) do (
+java -jar gold-cli.jar -x %%~sx %WTFDIR% >> log.txt
+extract.exe -p %WTFDIR% %%~sx >> log.txt
+"C:\Program Files\ImageMagick-6.8.3-Q16\convert.exe" %%~sx -flatten +matte tmp.bmp >> log.txt
+"C:\Program Files\7-Zip\7z.exe" x tmp.bmp -o%WTFDIR% -r -aou >> log.txt
+del tmp.bmp
+)
